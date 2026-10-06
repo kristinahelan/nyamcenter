@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panduan Pengunjung & Pelanggan — Pujasera Nyam Center</title>
+  <meta name="description" content="Panduan Lengkap Pengunjung / Pelanggan Sistem Pemesanan Makanan Pujasera Nyam Center: Scan QR Meja, Multi-Cart, Checkout QRIS, dan Live Tracking Status.">
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #f97316;
+      --primary-hover: #ea580c;
+      --sidebar-w: 300px;
+      --header-h: 70px;
+      --font-main: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    [data-theme="dark"] {
+      --bg-body: #090d16;
+      --bg-surface: #111827;
+      --bg-surface-elevated: #1a2234;
+      --bg-card: rgba(24, 32, 50, 0.85);
+      --bg-glass: rgba(17, 24, 39, 0.9);
+      --border: rgba(255, 255, 255, 0.08);
+      --text-main: #f9fafb;
+      --text-muted: #94a3b8;
+      --badge-bg: rgba(255, 255, 255, 0.06);
+    }
+
+    [data-theme="light"] {
+      --bg-body: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #f1f5f9;
+      --bg-card: rgba(255, 255, 255, 0.95);
+      --bg-glass: rgba(255, 255, 255, 0.95);
+      --border: rgba(0, 0, 0, 0.08);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --badge-bg: rgba(0, 0, 0, 0.05);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .top-navbar {
+      height: var(--header-h);
+      position: sticky;
+      top: 0;
+      background: var(--bg-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      z-index: 100;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .btn-back-tech {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      background: var(--badge-bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-back-tech:hover {
+      color: var(--text-main);
+      border-color: var(--primary);
+    }
+
+    .role-badge-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .role-icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    .role-text-box h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .role-text-box span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .role-switcher-group {
+      display: flex;
+      align-items: center;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 9999px;
+      padding: 3px;
+      gap: 2px;
+    }
+    .role-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .role-tab-btn:hover {
+      color: var(--text-main);
+    }
+    .role-tab-btn.active {
+      background: #10b981;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-action:hover {
+      color: var(--text-main);
+      border-color: var(--primary);
+    }
+
+    .guide-layout {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 1024px) {
+      .guide-layout {
+        grid-template-columns: 1fr;
+      }
+      .guide-sidebar {
+        display: none;
+      }
+    }
+
+    .guide-sidebar {
+      position: sticky;
+      top: calc(var(--header-h) + 2rem);
+      height: fit-content;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .toc-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+    .toc-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .toc-link {
+      display: block;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .toc-link:hover {
+      background: var(--badge-bg);
+      color: #10b981;
+      transform: translateX(4px);
+    }
+
+    .guide-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .guide-hero {
+      background: linear-gradient(135deg, rgba(6, 78, 59, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #6ee7b7;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+    .guide-hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+    }
+    .guide-hero p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 800px;
+    }
+
+    .guide-step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .step-number {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: #064e3b;
+      color: #6ee7b7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .step-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+    }
+
+    .feature-split-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .feature-mini-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .feature-mini-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .feature-mini-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .code-badge {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      padding: 0.2rem 0.45rem;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+    }
+
+    .mermaid-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      overflow-x: auto;
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Navigation -->
+  <header class="top-navbar">
+    <div class="nav-left">
+      <a href="./index.html" class="btn-back-tech">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Dokumentasi Teknik</span>
+      </a>
+      <div class="role-badge-brand">
+        <div class="role-icon-box">
+          <i class="fa-solid fa-utensils"></i>
+        </div>
+        <div class="role-text-box">
+          <h2>Panduan Pengunjung & Pelanggan</h2>
+          <span>Pujasera Nyam Center — Customer Guide</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <div class="role-switcher-group">
+        <a href="./pengunjung.html" class="role-tab-btn active">
+          <i class="fa-solid fa-user"></i> Pengunjung
+        </a>
+        <a href="./tenant.html" class="role-tab-btn">
+          <i class="fa-solid fa-store"></i> Tenant
+        </a>
+        <a href="./admin.html" class="role-tab-btn">
+          <i class="fa-solid fa-user-shield"></i> Admin
+        </a>
+      </div>
+
+      <a href="./panduan/pengunjung.md" target="_blank" class="btn-action">
+        <i class="fa-regular fa-file-code"></i> Raw MD
+      </a>
+      <button id="themeToggle" class="btn-action" title="Ganti Tema">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Layout Guide -->
+  <div class="guide-layout">
+    
+    <!-- Left Navigation TOC -->
+    <aside class="guide-sidebar">
+      <div class="toc-card">
+        <div class="toc-header">
+          <i class="fa-solid fa-list-ul"></i>
+          <span>Daftar Isi Panduan</span>
+        </div>
+        <ul class="toc-list">
+          <li><a href="#sec-1" class="toc-link">1. Scan QR Meja & Pilih Menu</a></li>
+          <li><a href="#sec-2" class="toc-link">2. Kustomisasi & Multi-Cart Stand</a></li>
+          <li><a href="#sec-3" class="toc-link">3. Voucher Promo & Checkout QRIS</a></li>
+          <li><a href="#sec-4" class="toc-link">4. Live Order Status Tracker</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="guide-content">
+      
+      <!-- Hero Header -->
+      <section class="guide-hero">
+        <div class="hero-pill">
+          <i class="fa-solid fa-utensils"></i> Panduan Pengunjung & Pelanggan
+        </div>
+        <h1>Cara Mudah Pesan Makanan di Pujasera Nyam Center</h1>
+        <p>
+          Pesan makanan dan minuman dari berbagai stand sekaligus langsung dari meja Anda tanpa perlu antre di kasir. Bayar praktis dengan QRIS dan pantau status memasak secara <em>real-time</em>!
+        </p>
+      </section>
+
+      <!-- Step 1 -->
+      <section id="sec-1" class="guide-step-card">
+        <div class="step-header">
+          <div class="step-number">1</div>
+          <h2 class="step-title">Scan QR di Meja Pujasera</h2>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          Duduk di meja favorit Anda di pujasera Nyam Center, buka kamera smartphone lalu scan QR Code yang tertempel di meja. Sistem akan langsung mengenali nomor meja Anda secara otomatis.
+        </p>
+
+        <div class="feature-split-grid">
+          <div class="feature-mini-card">
+            <div class="feature-mini-title">
+              <i class="fa-solid fa-qrcode" style="color: #10b981;"></i>
+              <span>Otomatis Terhubung Meja</span>
+            </div>
+            <p class="feature-mini-desc">
+              Nomor meja terkunci di sesi belanja Anda, sehingga makanan pasti diantar atau dipanggil tepat ke meja Anda.
+            </p>
+          </div>
+
+          <div class="feature-mini-card">
+            <div class="feature-mini-title">
+              <i class="fa-solid fa-layer-group" style="color: #3b82f6;"></i>
+              <span>Eksplorasi Stand & Kategori</span>
+            </div>
+            <p class="feature-mini-desc">
+              Filter menu berdasarkan stand favorit (Bakso Malang, Ayam Geprek, Kopi Seduh) atau kategori (Makanan Berat, Cemilan, Minuman Dingin).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 2 -->
+      <section id="sec-2" class="guide-step-card">
+        <div class="step-header">
+          <div class="step-number">2</div>
+          <h2 class="step-title">Kustomisasi Menu & Multi-Cart Stand</h2>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          Anda dapat memesan makanan dari <strong>beberapa stand berbeda sekaligus</strong> dalam satu kali transaksi pembayaran bersama!
+        </p>
+
+        <div class="mermaid-box">
+          <pre class="mermaid">
+graph LR
+    A["🍛 Nasi Goreng Stand A"] --> CART["🛒 Keranjang Terpadu Nyam Center"]
+    B["🥤 Es Teh Manis Stand B"] --> CART
+    C["🥟 Siomay Kukus Stand C"] --> CART
+    CART --> PAY["💳 1x Checkout QRIS Bersama"]
+          </pre>
+        </div>
+      </section>
+
+      <!-- Step 3 & 4 -->
+      <section id="sec-3" class="guide-step-card">
+        <div class="step-header">
+          <div class="step-number">3 & 4</div>
+          <h2 class="step-title">Gunakan Voucher Diskon, Bayar QRIS & Live Tracker</h2>
+        </div>
+
+        <div class="feature-split-grid">
+          <div class="feature-mini-card">
+            <div class="feature-mini-title">
+              <i class="fa-solid fa-ticket" style="color: #f59e0b;"></i>
+              <span>Klaim Voucher Diskon</span>
+            </div>
+            <p class="feature-mini-desc">
+              Ketik kode kupon <span class="code-badge">NYAMHEMAT</span> di keranjang untuk potongan instan hingga Rp 10.000.
+            </p>
+          </div>
+
+          <div class="feature-mini-card">
+            <div class="feature-mini-title">
+              <i class="fa-solid fa-stopwatch" style="color: #06b6d4;"></i>
+              <span>Live Order Tracker</span>
+            </div>
+            <p class="feature-mini-desc">
+              Setelah QRIS sukses, layar akan menampilkan progress bar memasak: <em>Menunggu Pembayaran ➔ Dapur Memasak ➔ Makanan Siap</em>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default',
+      securityLevel: 'loose'
+    });
+
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      themeToggle.innerHTML = next === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: next === 'dark' ? 'dark' : 'default'
+      });
+      mermaid.run();
+    });
+  </script>
+</body>
+</html>

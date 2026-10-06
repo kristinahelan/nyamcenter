@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Savoria Bites & Bistro - Pemesanan Makanan Online Modern</title>
+  <meta name="description" content="Pesan makanan dan minuman lezat khas Nusantara & Modern Fusion dengan mudah, cepat, promo voucher menarik, dan pelacakan pesanan real-time.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS Utama -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20width=%2232%22%20height=%2232%22><text y=%2226%22 font-size=%2226%22>🍲</text></svg>">
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="navbar" id="navbar">
+    <div class="navbar-container container">
+      <!-- Logo -->
+      <a href="#" class="brand-logo" id="brand-logo" aria-label="Savoria Bistro Home">
+        <span class="logo-icon">🍲</span>
+        <div class="logo-text">
+          <span class="brand-title">Savoria<span class="accent-dot">.</span></span>
+          <span class="brand-subtitle">Bites & Bistro</span>
+        </div>
+      </a>
+
+      <!-- Search Bar Desktop -->
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          id="search-input" 
+          class="search-input" 
+          placeholder="Cari nasi goreng, ayam geprek, matcha, kopi..." 
+          autocomplete="off"
+        >
+        <button id="search-clear-btn" class="search-clear-btn" title="Hapus pencarian" style="display: none;">✕</button>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="nav-actions">
+        <!-- Order Type Badge Switcher -->
+        <button class="badge-selector" id="order-type-toggle-btn" title="Ubah metode pemesanan">
+          <span class="badge-icon" id="order-type-icon">🛵</span>
+          <span class="badge-label" id="order-type-label">Delivery</span>
+        </button>
+
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Ganti Tema" title="Mode Gelap / Terang">
+          <span class="theme-icon-sun">☀️</span>
+          <span class="theme-icon-moon">🌙</span>
+        </button>
+
+        <!-- Wishlist Button -->
+        <button class="nav-icon-btn" id="wishlist-btn" title="Menu Favorit" aria-label="Menu Favorit">
+          <span class="icon">❤️</span>
+          <span class="counter-badge" id="wishlist-badge" style="display: none;">0</span>
+        </button>
+
+        <!-- Cart Button -->
+        <button class="cart-nav-btn" id="open-cart-btn" aria-label="Buka Keranjang">
+          <div class="cart-icon-wrapper">
+            <span class="cart-icon">🛒</span>
+            <span class="cart-badge" id="cart-badge">0</span>
+          </div>
+          <div class="cart-nav-total">
+            <span class="cart-label">Keranjang</span>
+            <span class="cart-amount" id="cart-nav-price">Rp 0</span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Search Bar -->
+    <div class="mobile-search-container container">
+      <div class="search-wrapper mobile-search">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          id="mobile-search-input" 
+          class="search-input" 
+          placeholder="Mau makan apa hari ini?" 
+          autocomplete="off"
+        >
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO & PROMO BANNER ================= -->
+  <main>
+    <section class="hero-section container">
+      <div class="hero-card">
+        <div class="hero-content">
+          <div class="hero-badges">
+            <span class="badge-pill pulse"><span class="live-dot"></span> Buka Sekarang • 09.00 - 22.00</span>
+            <span class="badge-pill gold">⭐ 4.9 Rating Restoran (1.5k+ Ulasan)</span>
+          </div>
+          <h1 class="hero-title">
+            Santap Lezat, <span class="gradient-text">Pesan Praktis</span> & Hangat Sampai Meja Anda.
+          </h1>
+          <p class="hero-desc">
+            Kelezatan hidangan istimewa nusantara & minuman segar racikan chef terbaik. Nikmati promo gratis ongkir dan diskon voucher spesial hari ini!
+          </p>
+          <div class="hero-cta-group">
+            <a href="#menu-catalog" class="btn btn-primary" id="explore-menu-btn">
+              <span>Jelajahi Menu</span>
+              <span class="arrow">↓</span>
+            </a>
+            <button class="btn btn-glass" id="open-voucher-modal-btn">
+              <span>🎟️ Klaim Voucher Diskon</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-img-glow"></div>
+          <img 
+            src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=700&auto=format&fit=crop&q=80" 
+            alt="Aneka Makanan Lezat Savoria Bistro" 
+            class="hero-img"
+            loading="lazy"
+          >
+          <div class="floating-promo-card">
+            <div class="promo-icon">🔥</div>
+            <div class="promo-text">
+              <strong>Flash Sale Hari Ini!</strong>
+              <small>Diskon hingga 30% pakai kode: <code>SAVORHEMAT</code></small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Voucher Quick Bar -->
+    <section class="voucher-bar-section container">
+      <div class="section-heading-sm">
+        <span class="tag-label">VOUCHER HEMAT HARI INI</span>
+        <span class="tag-helper">Klik voucher untuk salin kode & pakai langsung</span>
+      </div>
+      <div class="vouchers-grid" id="vouchers-quick-list">
+        <!-- Generated dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- ================= MENU CATALOG & FILTERS ================= -->
+    <section class="menu-section container" id="menu-catalog">
+      <!-- Filter Bar -->
+      <div class="catalog-header">
+        <div class="catalog-title-wrap">
+          <h2 class="section-title">Daftar Menu Pilihan</h2>
+          <p class="section-subtitle">Dibuat dari bahan segar berkualitas setiap hari</p>
+        </div>
+
+        <!-- Sort and Quick Filters -->
+        <div class="filter-controls">
+          <div class="sort-select-wrapper">
+            <label for="sort-select" class="sort-label">Urutkan:</label>
+            <select id="sort-select" class="sort-select">
+              <option value="popular">Paling Populer 🔥</option>
+              <option value="rating">Rating Tertinggi ⭐</option>
+              <option value="price-asc">Harga Terendah (Termurah)</option>
+              <option value="price-desc">Harga Tertinggi</option>
+            </select>
+          </div>
+
+          <div class="filter-toggles">
+            <label class="toggle-pill" id="filter-promo-label">
+              <input type="checkbox" id="filter-promo-checkbox">
+              <span>🏷️ Ada Promo</span>
+            </label>
+            <label class="toggle-pill" id="filter-bestseller-label">
+              <input type="checkbox" id="filter-bestseller-checkbox">
+              <span>⭐ Best Seller</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categories Pills -->
+      <div class="categories-scroll" id="categories-container" role="tablist">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Menu Grid Cards -->
+      <div class="menu-grid" id="menu-grid">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="empty-state" style="display: none;">
+        <div class="empty-icon">🍽️🔍</div>
+        <h3>Menu tidak ditemukan</h3>
+        <p>Coba gunakan kata kunci lain atau bersihkan filter pencarian Anda.</p>
+        <button class="btn btn-secondary" id="reset-filter-btn">Reset Pencarian</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <div class="brand-logo footer-logo">
+          <span class="logo-icon">🍲</span>
+          <span class="brand-title">Savoria<span class="accent-dot">.</span></span>
+        </div>
+        <p class="footer-desc">
+          Restoran & Bistro modern penyedia aneka kuliner Nusantara dan Fusion berkualitas tinggi, dibuat segar dengan cita rasa terbaik.
+        </p>
+        <div class="footer-badges">
+          <span class="pill-chip">🛵 Pesan Antar Cepat</span>
+          <span class="pill-chip">💳 QRIS & E-Wallet</span>
+          <span class="pill-chip">✅ Halal & Higienis</span>
+        </div>
+      </div>
+
+      <div class="footer-info">
+        <h4>Jam Operasional</h4>
+        <p>Senin - Minggu: 09:00 - 22:00 WIB</p>
+        <p>Dapur tutup: 21:30 WIB</p>
+        <h4 style="margin-top: 1rem;">Alamat & Lokasi</h4>
+        <p>Jl. Boulevard Kuliner No. 88, Surabaya</p>
+        <p>WhatsApp: +62 812-3456-7890</p>
+      </div>
+
+      <div class="footer-app-info">
+        <h4>Metode Pembayaran</h4>
+        <div class="payment-badges-row">
+          <span class="pay-badge">QRIS</span>
+          <span class="pay-badge">GoPay</span>
+          <span class="pay-badge">OVO</span>
+          <span class="pay-badge">Dana</span>
+          <span class="pay-badge">BCA / Mandiri</span>
+          <span class="pay-badge">COD</span>
+        </div>
+        <p class="copyright-text">
+          &copy; 2026 Savoria Bites & Bistro. All rights reserved. Dibuat dengan cinta untuk pecinta kuliner.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= MODAL: DETAIL / KUSTOMISASI MENU ================= -->
+  <div class="modal-backdrop" id="custom-modal-backdrop" style="display: none;">
+    <div class="modal-dialog" id="custom-modal-dialog">
+      <button class="modal-close-btn" id="custom-modal-close" aria-label="Tutup">✕</button>
+
+      <div class="modal-media-header">
+        <img src="" alt="" id="modal-menu-img" class="modal-menu-img">
+        <div class="modal-media-overlay">
+          <span class="modal-badge-category" id="modal-menu-category">Kategori</span>
+          <div class="modal-rating-pill" id="modal-menu-rating">⭐ 4.9</div>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <h3 class="modal-menu-title" id="modal-menu-title">Nama Makanan</h3>
+        <p class="modal-menu-desc" id="modal-menu-desc">Deskripsi makanan lengkap...</p>
+        
+        <div class="modal-price-row">
+          <div class="price-display">
+            <span class="current-price" id="modal-base-price">Rp 0</span>
+            <span class="old-price" id="modal-old-price" style="display: none;">Rp 0</span>
+          </div>
+          <span class="prep-time-badge" id="modal-prep-time">⏱️ 15 min</span>
+        </div>
+
+        <hr class="modal-divider">
+
+        <!-- Opsi Porsi -->
+        <div class="custom-section" id="portion-section">
+          <label class="custom-title">
+            <span>Pilihan Porsi</span>
+            <span class="custom-required">Wajib (Pilih 1)</span>
+          </label>
+          <div class="options-group" id="portion-options-container">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Opsi Level Kepedasan / Rasa -->
+        <div class="custom-section" id="spicy-section">
+          <label class="custom-title">
+            <span>Level Kepedasan / Varian</span>
+            <span class="custom-required">Wajib (Pilih 1)</span>
+          </label>
+          <div class="options-group" id="spicy-options-container">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Opsi Topping Tambahan -->
+        <div class="custom-section" id="topping-section">
+          <label class="custom-title">
+            <span>Topping Tambahan (Opsional)</span>
+            <span class="custom-optional">Bisa pilih lebih dari satu</span>
+          </label>
+          <div class="options-group" id="topping-options-container">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Catatan Khusus -->
+        <div class="custom-section">
+          <label class="custom-title" for="modal-notes-input">
+            <span>Catatan Khusus untuk Koki</span>
+            <span class="custom-optional">Opsional</span>
+          </label>
+          <textarea 
+            id="modal-notes-input" 
+            class="modal-notes-input" 
+            rows="2" 
+            placeholder="Contoh: Jangan pakai bawang goreng, sambal dipisah ya koki..."
+            maxlength="150"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="quantity-stepper">
+          <button class="qty-btn" id="modal-qty-minus" aria-label="Kurangi jumlah">−</button>
+          <span class="qty-value" id="modal-qty-display">1</span>
+          <button class="qty-btn" id="modal-qty-plus" aria-label="Tambah jumlah">+</button>
+        </div>
+
+        <button class="btn btn-primary btn-add-to-cart" id="modal-confirm-add-btn">
+          <span class="btn-text">Tambah ke Keranjang</span>
+          <span class="btn-price-calc" id="modal-total-add-price">Rp 0</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SLIDE-OVER CART DRAWER ================= -->
+  <div class="cart-backdrop" id="cart-backdrop" style="display: none;">
+    <div class="cart-drawer" id="cart-drawer">
+      <!-- Cart Header -->
+      <div class="cart-header">
+        <div class="cart-header-title">
+          <span class="cart-title-icon">🛒</span>
+          <h3>Keranjang Belanja</h3>
+          <span class="cart-count-chip" id="drawer-item-count">0 item</span>
+        </div>
+        <button class="cart-close-btn" id="cart-close-btn" aria-label="Tutup Keranjang">✕</button>
+      </div>
+
+      <!-- Free Delivery Progress Bar -->
+      <div class="delivery-progress-card">
+        <div class="progress-info">
+          <span class="progress-icon">🛵</span>
+          <span class="progress-text" id="free-shipping-text">Tambah Rp 25.000 lagi untuk Gratis Ongkir!</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="shipping-progress-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- Cart Item List -->
+      <div class="cart-items-container" id="cart-items-container">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Voucher Promo Box -->
+      <div class="cart-voucher-box">
+        <div class="voucher-input-group">
+          <input 
+            type="text" 
+            id="voucher-input" 
+            placeholder="Masukkan kode voucher promo..." 
+            autocomplete="off"
+          >
+          <button class="btn btn-secondary btn-apply-voucher" id="apply-voucher-btn">Terapkan</button>
+        </div>
+        <div class="applied-voucher-alert" id="applied-voucher-alert" style="display: none;">
+          <div class="applied-info">
+            <span class="v-tag">🎟️ <strong id="applied-voucher-code">KODE</strong></span>
+            <span class="v-desc" id="applied-voucher-desc">Hemat Rp 20.000</span>
+          </div>
+          <button class="remove-voucher-btn" id="remove-voucher-btn" title="Hapus voucher">✕</button>
+        </div>
+      </div>
+
+      <!-- Cart Calculations -->
+      <div class="cart-summary-section">
+        <div class="summary-row">
+          <span>Subtotal Item</span>
+          <span id="summary-subtotal">Rp 0</span>
+        </div>
+        <div class="summary-row discount-row" id="summary-discount-row" style="display: none;">
+          <span>Diskon Voucher</span>
+          <span class="discount-value" id="summary-discount">-Rp 0</span>
+        </div>
+        <div class="summary-row">
+          <span>Ongkos Kirim</span>
+          <span id="summary-shipping">Rp 12.000</span>
+        </div>
+        <div class="summary-row">
+          <span>Pajak Restoran (PB1 10%)</span>
+          <span id="summary-tax">Rp 0</span>
+        </div>
+        <hr class="summary-divider">
+        <div class="summary-row total-row">
+          <span>Total Pembayaran</span>
+          <span class="final-total" id="summary-grand-total">Rp 0</span>
+        </div>
+      </div>
+
+      <!-- Cart Footer Actions -->
+      <div class="cart-footer">
+        <button class="btn btn-primary btn-block" id="proceed-to-checkout-btn">
+          <span>Lanjut ke Pembayaran</span>
+          <span class="btn-arrow">➔</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: CHECKOUT & PEMBAYARAN ================= -->
+  <div class="modal-backdrop" id="checkout-modal-backdrop" style="display: none;">
+    <div class="modal-dialog checkout-dialog" id="checkout-modal-dialog">
+      <button class="modal-close-btn" id="checkout-modal-close" aria-label="Tutup Checkout">✕</button>
+
+      <div class="checkout-header">
+        <span class="checkout-icon">🛍️</span>
+        <div>
+          <h3 class="checkout-title">Formulir Pesanan & Pembayaran</h3>
+          <p class="checkout-subtitle">Lengkapi detail untuk memproses pesanan lezat Anda</p>
+        </div>
+      </div>
+
+      <form id="checkout-form" class="checkout-form" onsubmit="return false;">
+        <!-- Tipe Pesanan -->
+        <div class="form-group">
+          <label class="form-label">Tipe Layanan Pesanan</label>
+          <div class="order-type-radios">
+            <label class="type-radio-card active">
+              <input type="radio" name="orderType" value="delivery" checked>
+              <div class="radio-content">
+                <span class="type-icon">🛵</span>
+                <span class="type-name">Pesan Antar</span>
+                <small class="type-sub">Antar ke Alamat</small>
+              </div>
+            </label>
+            <label class="type-radio-card">
+              <input type="radio" name="orderType" value="dinein">
+              <div class="radio-content">
+                <span class="type-icon">🍽️</span>
+                <span class="type-name">Dine In</span>
+                <small class="type-sub">Makan di Tempat</small>
+              </div>
+            </label>
+            <label class="type-radio-card">
+              <input type="radio" name="orderType" value="takeaway">
+              <div class="radio-content">
+                <span class="type-icon">🥡</span>
+                <span class="type-name">Takeaway</span>
+                <small class="type-sub">Bawa Pulang</small>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Data Pemesan -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="cust-name">Nama Pemesan <span class="required">*</span></label>
+            <input type="text" id="cust-name" class="form-input" placeholder="Masukkan nama Anda" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cust-phone">Nomor WhatsApp <span class="required">*</span></label>
+            <input type="tel" id="cust-phone" class="form-input" placeholder="08123456789" required>
+          </div>
+        </div>
+
+        <!-- Dynamic Destination Input (Alamat atau Nomor Meja) -->
+        <div class="form-group" id="destination-group">
+          <label class="form-label" id="destination-label" for="cust-destination">
+            Alamat Pengiriman Lengkap <span class="required">*</span>
+          </label>
+          <textarea 
+            id="cust-destination" 
+            class="form-input form-textarea" 
+            rows="2" 
+            placeholder="Jl. Mawar No. 12, Kel. Sukolilo, Surabaya (Patokan depan minimarket)"
+            required
+          ></textarea>
+        </div>
+
+        <!-- Pilihan Metode Pembayaran -->
+        <div class="form-group">
+          <label class="form-label">Metode Pembayaran</label>
+          <div class="payment-options-grid">
+            <label class="payment-method-card active">
+              <input type="radio" name="paymentMethod" value="qris" checked>
+              <div class="pm-content">
+                <div class="pm-top">
+                  <span class="pm-icon">📱</span>
+                  <strong>QRIS Dinamis</strong>
+                </div>
+                <small>Scan GoPay, OVO, Dana, ShopeePay, BCA, dll.</small>
+              </div>
+            </label>
+
+            <label class="payment-method-card">
+              <input type="radio" name="paymentMethod" value="ewallet">
+              <div class="pm-content">
+                <div class="pm-top">
+                  <span class="pm-icon">💳</span>
+                  <strong>E-Wallet Instan</strong>
+                </div>
+                <small>GoPay / OVO / ShopeePay / DANA</small>
+              </div>
+            </label>
+
+            <label class="payment-method-card">
+              <input type="radio" name="paymentMethod" value="va">
+              <div class="pm-content">
+                <div class="pm-top">
+                  <span class="pm-icon">🏦</span>
+                  <strong>Transfer VA Bank</strong>
+                </div>
+                <small>BCA, Mandiri, BRI Virtual Account</small>
+              </div>
+            </label>
+
+            <label class="payment-method-card">
+              <input type="radio" name="paymentMethod" value="cash">
+              <div class="pm-content">
+                <div class="pm-top">
+                  <span class="pm-icon">💵</span>
+                  <strong>Bayar Tunai / COD</strong>
+                </div>
+                <small>Bayar saat makanan tiba atau di kasir resto</small>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Ringkasan Checkout Box -->
+        <div class="checkout-review-card">
+          <div class="review-title">Ringkasan Biaya Akhir</div>
+          <div class="review-row">
+            <span>Total Menu (<span id="co-item-count">0</span> item):</span>
+            <span id="co-subtotal">Rp 0</span>
+          </div>
+          <div class="review-row" id="co-discount-row" style="display: none;">
+            <span>Potongan Voucher:</span>
+            <span class="discount-value" id="co-discount">-Rp 0</span>
+          </div>
+          <div class="review-row">
+            <span>Biaya Layanan & Ongkir:</span>
+            <span id="co-shipping">Rp 12.000</span>
+          </div>
+          <div class="review-row">
+            <span>Pajak Restoran PB1 (10%):</span>
+            <span id="co-tax">Rp 0</span>
+          </div>
+          <div class="review-row review-grand">
+            <strong>Total Tagihan:</strong>
+            <strong class="grand-price" id="co-total">Rp 0</strong>
+          </div>
+        </div>
+
+        <!-- Tombol Konfirmasi Checkout -->
+        <div class="checkout-actions">
+          <button type="button" class="btn btn-secondary" id="checkout-cancel-btn">Kembali ke Keranjang</button>
+          <button type="submit" class="btn btn-primary btn-submit-order" id="confirm-payment-btn">
+            <span>Konfirmasi & Bayar</span>
+            <span id="confirm-payment-amount">Rp 0</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: SIMULASI PEMBAYARAN QRIS ================= -->
+  <div class="modal-backdrop" id="qris-modal-backdrop" style="display: none;">
+    <div class="modal-dialog qris-dialog" id="qris-modal-dialog">
+      <div class="qris-card">
+        <div class="qris-header">
+          <div class="qris-brand-row">
+            <span class="qris-logo">QRIS</span>
+            <span class="qris-tag">Pembayaran Cepat Nasional</span>
+          </div>
+          <p class="merchant-name">MERCHANT: <strong>SAVORIA BISTRO & KULINER</strong></p>
+          <p class="invoice-num">NMID: ID1020268899812 • Inv: <span id="qris-invoice-id">#SAV-88912</span></p>
+        </div>
+
+        <!-- QR Code Dynamic Render -->
+        <div class="qris-code-container">
+          <div class="qr-box" id="qr-display-box">
+            <!-- Dynamic SVG QR Code will be inserted here -->
+            <svg class="qr-svg-mock" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <rect width="200" height="200" fill="#ffffff" rx="10"/>
+              <!-- Standard QR Finder Patterns -->
+              <rect x="20" y="20" width="45" height="45" fill="#111827"/>
+              <rect x="27" y="27" width="31" height="31" fill="#ffffff"/>
+              <rect x="33" y="33" width="19" height="19" fill="#111827"/>
+              
+              <rect x="135" y="20" width="45" height="45" fill="#111827"/>
+              <rect x="142" y="27" width="31" height="31" fill="#ffffff"/>
+              <rect x="148" y="33" width="19" height="19" fill="#111827"/>
+
+              <rect x="20" y="135" width="45" height="45" fill="#111827"/>
+              <rect x="27" y="142" width="31" height="31" fill="#ffffff"/>
+              <rect x="33" y="148" width="19" height="19" fill="#111827"/>
+
+              <!-- Decorative QR Matrix Dots -->
+              <g fill="#111827">
+                <rect x="75" y="22" width="10" height="10"/>
+                <rect x="90" y="22" width="10" height="10"/>
+                <rect x="110" y="22" width="10" height="10"/>
+                <rect x="75" y="38" width="15" height="10"/>
+                <rect x="105" y="38" width="15" height="10"/>
+                <rect x="22" y="75" width="10" height="10"/>
+                <rect x="38" y="85" width="12" height="10"/>
+                <rect x="55" y="75" width="10" height="15"/>
+                <rect x="75" y="75" width="50" height="50" rx="8" fill="#f97316"/>
+                <text x="100" y="105" font-size="24" text-anchor="middle" fill="#ffffff">🍲</text>
+                <rect x="135" y="75" width="12" height="12"/>
+                <rect x="155" y="85" width="20" height="10"/>
+                <rect x="140" y="105" width="15" height="10"/>
+                <rect x="165" y="120" width="15" height="15"/>
+                <rect x="75" y="135" width="12" height="12"/>
+                <rect x="95" y="140" width="25" height="10"/>
+                <rect x="130" y="140" width="10" height="15"/>
+                <rect x="85" y="160" width="20" height="15"/>
+                <rect x="115" y="165" width="20" height="10"/>
+                <rect x="145" y="160" width="30" height="15"/>
+              </g>
+            </svg>
+          </div>
+          <div class="qris-timer-pill">
+            <span>Selesaikan dalam: </span>
+            <strong id="qris-countdown">04:59</strong>
+          </div>
+        </div>
+
+        <div class="qris-nominal-box">
+          <span class="nominal-label">Total Tagihan:</span>
+          <span class="nominal-value" id="qris-nominal-value">Rp 0</span>
+        </div>
+
+        <div class="qris-simulation-actions">
+          <button class="btn btn-primary btn-block btn-pay-success-mock" id="mock-pay-success-btn">
+            <span>✅ Simulasikan Bayar Sukses</span>
+          </button>
+          <button class="btn btn-secondary btn-block" id="cancel-qris-btn">Batal / Ganti Metode</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: LIVE ORDER TRACKER & STRUK ================= -->
+  <div class="modal-backdrop" id="tracker-modal-backdrop" style="display: none;">
+    <div class="modal-dialog tracker-dialog" id="tracker-modal-dialog">
+      <button class="modal-close-btn" id="tracker-modal-close" aria-label="Tutup Tracker">✕</button>
+
+      <div class="tracker-header">
+        <div class="status-badge-live">
+          <span class="live-dot pulse"></span>
+          <span>Pesanan Aktif Real-Time</span>
+        </div>
+        <h3 class="tracker-title" id="tracker-headline">Pesanan Sedang Diproses!</h3>
+        <p class="tracker-order-id">ID Pesanan: <strong id="tracker-order-id">#SAV-12345</strong></p>
+      </div>
+
+      <!-- Timeline Stepper -->
+      <div class="order-stepper" id="order-stepper">
+        <div class="step-item step-completed" id="step-1">
+          <div class="step-icon-wrap">
+            <span class="step-icon">📝</span>
+          </div>
+          <div class="step-content">
+            <h5 class="step-title">Pesanan Diterima</h5>
+            <p class="step-desc">Pesanan telah diverifikasi oleh kasir & sistem.</p>
+            <span class="step-time" id="step-1-time">Baru saja</span>
+          </div>
+        </div>
+
+        <div class="step-item step-active" id="step-2">
+          <div class="step-icon-wrap">
+            <span class="step-icon">👨‍🍳</span>
+          </div>
+          <div class="step-content">
+            <h5 class="step-title">Sedang Dimasak oleh Chef</h5>
+            <p class="step-desc">Bahan segar sedang diracik dengan higienis.</p>
+            <span class="step-time" id="step-2-time">Estimasi 12 Menit</span>
+          </div>
+        </div>
+
+        <div class="step-item" id="step-3">
+          <div class="step-icon-wrap">
+            <span class="step-icon">🛵</span>
+          </div>
+          <div class="step-content">
+            <h5 class="step-title" id="step-3-title">Dalam Pengantaran</h5>
+            <p class="step-desc" id="step-3-desc">Driver membawa makanan hangat menuju alamat Anda.</p>
+            <span class="step-time" id="step-3-time">Menunggu penjemputan</span>
+          </div>
+        </div>
+
+        <div class="step-item" id="step-4">
+          <div class="step-icon-wrap">
+            <span class="step-icon">🎉</span>
+          </div>
+          <div class="step-content">
+            <h5 class="step-title" id="step-4-title">Tiba di Tujuan & Selesai</h5>
+            <p class="step-desc">Selamat menikmati hidangan lezat Savoria Bistro!</p>
+            <span class="step-time" id="step-4-time">Estimasi 25 Menit</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Fast-Forward Simulation Controller -->
+      <div class="sim-speed-box">
+        <small>💡 <em>Simulasi otomatis berlangsung setiap beberapa detik, atau klik tombol di bawah untuk mempercepat status:</em></small>
+        <button class="btn btn-xs btn-glass" id="fast-forward-step-btn">⏩ Percepat ke Status Berikutnya</button>
+      </div>
+
+      <!-- Printable Digital Receipt -->
+      <div class="receipt-container" id="printable-receipt">
+        <div class="receipt-header">
+          <div class="receipt-logo">🍲 SAVORIA BITES & BISTRO</div>
+          <p class="receipt-loc">Jl. Boulevard Kuliner No. 88, Surabaya</p>
+          <div class="receipt-dashed"></div>
+        </div>
+
+        <div class="receipt-meta">
+          <div class="receipt-meta-row">
+            <span>No. Transaksi:</span>
+            <strong id="receipt-id">#SAV-0000</strong>
+          </div>
+          <div class="receipt-meta-row">
+            <span>Waktu:</span>
+            <span id="receipt-date">21/09/2026, 12:00</span>
+          </div>
+          <div class="receipt-meta-row">
+            <span>Pelanggan:</span>
+            <span id="receipt-customer">Kristina</span>
+          </div>
+          <div class="receipt-meta-row">
+            <span>Metode / Layanan:</span>
+            <span id="receipt-type">Delivery (QRIS)</span>
+          </div>
+          <div class="receipt-meta-row">
+            <span>Tujuan / Meja:</span>
+            <span id="receipt-address">Jl. Mawar No. 12</span>
+          </div>
+          <div class="receipt-dashed"></div>
+        </div>
+
+        <!-- Receipt Item List -->
+        <div class="receipt-items-list" id="receipt-items-list">
+          <!-- Rendered via JS -->
+        </div>
+
+        <div class="receipt-dashed"></div>
+
+        <div class="receipt-pricing">
+          <div class="rc-row">
+            <span>Subtotal:</span>
+            <span id="rc-subtotal">Rp 0</span>
+          </div>
+          <div class="rc-row rc-discount" id="rc-discount-row" style="display: none;">
+            <span>Diskon Kupon:</span>
+            <span id="rc-discount">-Rp 0</span>
+          </div>
+          <div class="rc-row">
+            <span>Ongkir:</span>
+            <span id="rc-shipping">Rp 12.000</span>
+          </div>
+          <div class="rc-row">
+            <span>Pajak Resto (10%):</span>
+            <span id="rc-tax">Rp 0</span>
+          </div>
+          <div class="receipt-dashed"></div>
+          <div class="rc-row rc-grand">
+            <strong>TOTAL BAYAR:</strong>
+            <strong id="rc-grand-total">Rp 0</strong>
+          </div>
+        </div>
+
+        <div class="receipt-footer">
+          <p>*** LUNAS / PAID ***</p>
+          <p>Terima kasih telah memesan di Savoria!</p>
+          <p>Kritik & Saran WA: 0812-3456-7890</p>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="tracker-actions">
+        <button class="btn btn-secondary" id="print-receipt-btn">🖨️ Cetak Struk Transaksi</button>
+        <button class="btn btn-primary" id="order-again-btn">🛍️ Pesan Menu Lain</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FLOATING CART BOTTOM PILL (MOBILE) ================= -->
+  <div class="mobile-floating-cart" id="mobile-floating-cart" style="display: none;">
+    <div class="m-cart-content" id="mobile-floating-cart-trigger">
+      <div class="m-cart-left">
+        <span class="m-cart-icon">🛒</span>
+        <div class="m-cart-text">
+          <span class="m-cart-count" id="m-cart-count">1 Item</span>
+          <span class="m-cart-total" id="m-cart-total">Rp 32.000</span>
+        </div>
+      </div>
+      <div class="m-cart-right">
+        <span>Lihat Keranjang</span>
+        <span class="m-arrow">➔</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

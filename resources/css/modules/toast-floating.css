@@ -1,0 +1,189 @@
+/* =========================================================
+   FLOATING CART, TOAST NOTIFICATIONS & RESPONSIVE STYLES
+========================================================= */
+
+/* Mobile Floating Cart */
+.mobile-floating-cart {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  z-index: 90;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.m-cart-content {
+  background: var(--primary-gradient);
+  color: #ffffff;
+  border-radius: var(--radius-full);
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 6px 20px var(--primary-glow);
+  cursor: pointer;
+}
+
+.m-cart-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.m-cart-icon {
+  font-size: 1.4rem;
+}
+
+.m-cart-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.m-cart-count {
+  font-size: 0.75rem;
+  opacity: 0.9;
+}
+
+.m-cart-total {
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.m-cart-right {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+/* Toast Notification System */
+.toast-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  min-width: 280px;
+  max-width: 380px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all var(--transition-normal);
+}
+
+.toast.toast-success {
+  border-left: 4px solid var(--success);
+}
+
+.toast.toast-info {
+  border-left: 4px solid var(--primary);
+}
+
+.toast.toast-error {
+  border-left: 4px solid var(--danger);
+}
+
+@keyframes toastIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes toastOut {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(100%); opacity: 0; }
+}
+
+/* Responsive Media Queries */
+@media (max-width: 1024px) {
+  .hero-card {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+    gap: 2rem;
+  }
+  .hero-visual {
+    order: -1;
+  }
+  .hero-img {
+    max-height: 280px;
+  }
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-wrapper:not(.mobile-search) {
+    display: none;
+  }
+  .mobile-search-container {
+    display: block;
+  }
+  .cart-nav-total {
+    display: none;
+  }
+  .hero-title {
+    font-size: 2.1rem;
+  }
+  .menu-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .order-type-radios {
+    grid-template-columns: 1fr;
+  }
+  .payment-options-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .mobile-floating-cart {
+    display: block;
+  }
+}
+
+/* Print styling for receipts */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-receipt, #printable-receipt * {
+    visibility: visible;
+  }
+  #printable-receipt {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    border: none;
+    background: #fff;
+    color: #000;
+  }
+}

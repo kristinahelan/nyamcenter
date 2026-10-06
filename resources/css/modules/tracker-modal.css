@@ -1,0 +1,227 @@
+/* =========================================================
+   LIVE ORDER TRACKER & DIGITAL RECEIPT STYLES
+========================================================= */
+
+.tracker-dialog {
+  max-width: 600px;
+  max-height: 92vh;
+  overflow-y: auto;
+}
+
+.tracker-header {
+  padding: 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.status-badge-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--success-bg);
+  border: 1px solid var(--success-border);
+  color: var(--success);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.5rem;
+}
+
+.tracker-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+}
+
+.tracker-order-id {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* Timeline Stepper */
+.order-stepper {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  position: relative;
+}
+
+.step-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 42px;
+  left: 20px;
+  bottom: -20px;
+  width: 2px;
+  background: var(--border-color);
+}
+
+.step-item.step-completed:not(:last-child)::after {
+  background: var(--success);
+}
+
+.step-icon-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--bg-surface-elevated);
+  border: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  z-index: 2;
+  transition: all var(--transition-normal);
+}
+
+.step-item.step-active .step-icon-wrap {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  box-shadow: 0 0 16px var(--primary-glow);
+  transform: scale(1.1);
+}
+
+[data-theme="dark"] .step-item.step-active .step-icon-wrap {
+  background: rgba(249, 115, 22, 0.15);
+}
+
+.step-item.step-completed .step-icon-wrap {
+  border-color: var(--success);
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.15rem;
+}
+
+.step-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: 0.2rem;
+}
+
+.step-time {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.sim-speed-box {
+  margin: 0 1.5rem 1rem 1.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-surface-elevated);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Printable Digital Receipt */
+.receipt-container {
+  margin: 1rem 1.5rem;
+  padding: 1.5rem;
+  background: var(--bg-body);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-family: monospace, sans-serif;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.receipt-header {
+  text-align: center;
+}
+
+.receipt-logo {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.receipt-loc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.receipt-dashed {
+  border-bottom: 1px dashed var(--border-color);
+  margin: 0.75rem 0;
+}
+
+.receipt-meta-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.receipt-item-line {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+
+.rc-item-name {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.rc-item-details {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  padding-left: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.rc-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.3rem;
+}
+
+.rc-discount {
+  color: var(--success);
+}
+
+.rc-grand {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.receipt-footer {
+  text-align: center;
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.tracker-actions {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-surface-elevated);
+}
+
+.tracker-actions button {
+  flex: 1;
+}

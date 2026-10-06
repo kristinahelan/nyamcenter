@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dokumentasi Sistem Pemesanan Makanan Nyam Center — SRS & Architecture Blueprint</title>
+  <meta name="description" content="Dokumentasi lengkap SRS, DFD (Asa), ERD & Use Case (Riska), Sequence & Class Diagram (Ina), serta Panduan Peran Pengunjung, Tenant, dan Admin.">
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Marked.js for Markdown Rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!-- Mermaid.js for Dynamic Diagram Rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #f97316;
+      --primary-hover: #ea580c;
+      --primary-light: #ffedd5;
+      --primary-glow: rgba(249, 115, 22, 0.25);
+      --primary-grad: linear-gradient(135deg, #f97316 0%, #fb923c 50%, #f43f5e 100%);
+      --sidebar-w: 320px;
+      --header-h: 70px;
+      --font-main: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+    }
+
+    [data-theme="dark"] {
+      --bg-body: #090d16;
+      --bg-surface: #111827;
+      --bg-surface-elevated: #1a2234;
+      --bg-card: rgba(24, 32, 50, 0.75);
+      --bg-glass: rgba(17, 24, 39, 0.85);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(249, 115, 22, 0.5);
+      --text-main: #f9fafb;
+      --text-muted: #94a3b8;
+      --badge-bg: rgba(255, 255, 255, 0.06);
+      --code-bg: #151d2f;
+      --table-header: #1e293b;
+    }
+
+    [data-theme="light"] {
+      --bg-body: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #f1f5f9;
+      --bg-card: rgba(255, 255, 255, 0.9);
+      --bg-glass: rgba(255, 255, 255, 0.9);
+      --border: rgba(0, 0, 0, 0.08);
+      --border-focus: rgba(249, 115, 22, 0.5);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --badge-bg: rgba(0, 0, 0, 0.04);
+      --code-bg: #f1f5f9;
+      --table-header: #e2e8f0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.65;
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Sidebar Navigation */
+    .docs-sidebar {
+      width: var(--sidebar-w);
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: var(--bg-surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-md);
+      background: var(--primary-grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.15rem;
+      box-shadow: 0 4px 12px var(--primary-glow);
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+    }
+
+    /* User Guides Box in Sidebar */
+    .user-guides-card {
+      padding: 0.85rem 1rem;
+      background: var(--bg-surface-elevated);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .user-guides-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.2rem;
+    }
+
+    .user-guides-badge {
+      font-size: 0.65rem;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      font-weight: 700;
+    }
+
+    .user-guide-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .user-guide-link:hover {
+      border-color: var(--primary);
+      transform: translateX(3px);
+      background: rgba(249, 115, 22, 0.06);
+    }
+
+    .user-guide-link-left {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .search-box {
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.55rem 0.85rem 0.55rem 2.2rem;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .nav-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.75rem 0.75rem;
+      list-style: none;
+    }
+
+    .nav-section-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.75rem 0.75rem 0.35rem 0.75rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 0.85rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      margin-bottom: 2px;
+    }
+
+    .nav-item:hover {
+      background: var(--bg-surface-elevated);
+      color: var(--text-main);
+    }
+
+    .nav-item.active {
+      background: var(--primary-grad);
+      color: #ffffff;
+      box-shadow: 0 4px 14px var(--primary-glow);
+    }
+
+    .nav-item-left {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .author-chip {
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--badge-bg);
+      border: 1px solid var(--border);
+    }
+
+    .nav-item.active .author-chip {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: #fff;
+    }
+
+    /* Main Content Area */
+    .docs-main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .docs-topbar {
+      height: var(--header-h);
+      position: sticky;
+      top: 0;
+      background: var(--bg-glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 50;
+    }
+
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .breadcrumbs span.current {
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .top-role-tabs {
+      display: flex;
+      align-items: center;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: 9999px;
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .top-role-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .top-role-btn:hover {
+      color: var(--text-main);
+      background: var(--badge-bg);
+    }
+
+    .btn-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    .btn-icon:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-portal {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      background: var(--primary-grad);
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 12px var(--primary-glow);
+      transition: transform 0.2s;
+    }
+
+    .btn-portal:hover {
+      transform: translateY(-2px);
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+
+    /* Article Content Container */
+    .docs-article {
+      flex: 1;
+      padding: 2.5rem 3.5rem 5rem 3.5rem;
+      max-width: 1120px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Markdown Styling */
+    .markdown-body {
+      color: var(--text-main);
+      font-size: 0.98rem;
+      line-height: 1.75;
+    }
+
+    .markdown-body h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-top: 1rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--border);
+      color: var(--text-main);
+    }
+
+    .markdown-body h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin-top: 2.25rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-main);
+    }
+
+    .markdown-body h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--primary);
+    }
+
+    .markdown-body p, .markdown-body ul, .markdown-body ol {
+      margin-bottom: 1.2rem;
+    }
+
+    .markdown-body ul, .markdown-body ol {
+      padding-left: 1.5rem;
+    }
+
+    .markdown-body li {
+      margin-bottom: 0.4rem;
+    }
+
+    .markdown-body hr {
+      border: none;
+      height: 1px;
+      background: var(--border);
+      margin: 2.5rem 0;
+    }
+
+    .markdown-body strong {
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .markdown-body a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .markdown-body a:hover {
+      text-decoration: underline;
+    }
+
+    .markdown-body code:not([class*="language-"]) {
+      font-family: var(--font-mono);
+      font-size: 0.88em;
+      padding: 0.2em 0.45em;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: #fb923c;
+    }
+
+    .markdown-body pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    .markdown-body pre code {
+      font-family: var(--font-mono);
+      font-size: 0.86rem;
+      color: #e2e8f0;
+      background: transparent;
+      padding: 0;
+      border: none;
+    }
+
+    .markdown-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .markdown-body th, .markdown-body td {
+      padding: 0.85rem 1.15rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .markdown-body th {
+      background: var(--table-header);
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .markdown-body tr:last-child td {
+      border-bottom: none;
+    }
+
+    .markdown-body tr:hover td {
+      background: rgba(249, 115, 22, 0.03);
+    }
+
+    .mermaid-container {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      margin: 1.5rem 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: auto;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .docs-sidebar {
+        transform: translateX(-100%);
+      }
+      .docs-sidebar.open {
+        transform: translateX(0);
+      }
+      .docs-main {
+        margin-left: 0;
+      }
+      .mobile-menu-toggle {
+        display: block;
+      }
+      .docs-article {
+        padding: 1.5rem 1.25rem 3rem 1.25rem;
+      }
+      .docs-topbar {
+        padding: 0 1.25rem;
+      }
+      .top-role-tabs {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="docs-sidebar" id="docs-sidebar">
+    <div class="sidebar-header">
+      <a href="./index.html" class="brand-link">
+        <span class="brand-icon"><i class="fa-solid fa-bowl-food"></i></span>
+        <div>
+          <div class="brand-title">Nyam Center</div>
+          <div class="brand-sub">Documentation Hub</div>
+        </div>
+      </a>
+      <button class="mobile-menu-toggle" id="sidebar-close-btn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- PANDUAN PENGGUNA SECTION -->
+    <div class="user-guides-card">
+      <div class="user-guides-header">
+        <span><i class="fa-solid fa-compass"></i> Panduan Pengguna</span>
+        <span class="user-guides-badge">Role Guides</span>
+      </div>
+      <a href="./pengunjung.html" class="user-guide-link">
+        <span class="user-guide-link-left">
+          <i class="fa-solid fa-user" style="color: #10b981;"></i>
+          <span>Pengunjung Umum</span>
+        </span>
+        <i class="fa-solid fa-arrow-up-right-from-square text-xs" style="color: var(--text-muted);"></i>
+      </a>
+      <a href="./tenant.html" class="user-guide-link">
+        <span class="user-guide-link-left">
+          <i class="fa-solid fa-store" style="color: #f97316;"></i>
+          <span>Tenant (Stand)</span>
+        </span>
+        <i class="fa-solid fa-arrow-up-right-from-square text-xs" style="color: var(--text-muted);"></i>
+      </a>
+      <a href="./admin.html" class="user-guide-link">
+        <span class="user-guide-link-left">
+          <i class="fa-solid fa-user-shield" style="color: #3b82f6;"></i>
+          <span>Admin Pujasera</span>
+        </span>
+        <i class="fa-solid fa-arrow-up-right-from-square text-xs" style="color: var(--text-muted);"></i>
+      </a>
+    </div>
+
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="doc-search" placeholder="Cari diagram, topik, atau bab...">
+    </div>
+
+    <ul class="nav-list" id="nav-list">
+      <li class="nav-section-title">Dokumentasi Utama</li>
+      <li><a class="nav-item active" data-file="00-project-overview.md"><span class="nav-item-left"><i class="fa-solid fa-book-open"></i> 00. Overview & Tim</span></a></li>
+      <li><a class="nav-item" data-file="01-scope-stakeholders.md"><span class="nav-item-left"><i class="fa-solid fa-users-viewfinder"></i> 01. Ruang Lingkup & Peran</span></a></li>
+      <li><a class="nav-item" data-file="02-system-requirements.md"><span class="nav-item-left"><i class="fa-solid fa-list-check"></i> 02. Kebutuhan SRS</span></a></li>
+
+      <li class="nav-section-title">Pemodelan Terstruktur (ASA)</li>
+      <li><a class="nav-item" data-file="03-dfd-asa.md"><span class="nav-item-left"><i class="fa-solid fa-diagram-project"></i> 03. DFD Lv 0, 1, 2</span><span class="author-chip">ASA</span></a></li>
+
+      <li class="nav-section-title">Data & Behavioral UML (RISKA)</li>
+      <li><a class="nav-item" data-file="04-uml-erd-riska.md"><span class="nav-item-left"><i class="fa-solid fa-database"></i> 04. ERD & Use Case & Activity</span><span class="author-chip">RISKA</span></a></li>
+
+      <li class="nav-section-title">Objek & Dynamic UML (INA)</li>
+      <li><a class="nav-item" data-file="05-uml-ina.md"><span class="nav-item-left"><i class="fa-solid fa-cubes-stacked"></i> 05. Sequence & Class Diagram</span><span class="author-chip">INA</span></a></li>
+
+      <li class="nav-section-title">Diagram Sistem Tambahan</li>
+      <li><a class="nav-item" data-file="10-order-state-diagram.md"><span class="nav-item-left"><i class="fa-solid fa-rotate"></i> 10. State Machine Order</span></a></li>
+      <li><a class="nav-item" data-file="11-system-architecture.md"><span class="nav-item-left"><i class="fa-solid fa-network-wired"></i> 11. Arsitektur & Deployment</span></a></li>
+      <li><a class="nav-item" data-file="12-user-flow-bpmn.md"><span class="nav-item-left"><i class="fa-solid fa-timeline"></i> 12. BPMN Alur Bisnis</span></a></li>
+
+      <li class="nav-section-title">Implementasi & Pengujian</li>
+      <li><a class="nav-item" data-file="06-database-schema.md"><span class="nav-item-left"><i class="fa-solid fa-table-cells"></i> 06. Skema Basis Data</span></a></li>
+      <li><a class="nav-item" data-file="07-ui-ux-flow.md"><span class="nav-item-left"><i class="fa-solid fa-wand-magic-sparkles"></i> 07. UI/UX & Wireframe</span></a></li>
+      <li><a class="nav-item" data-file="08-test-plan.md"><span class="nav-item-left"><i class="fa-solid fa-vial-circle-check"></i> 08. Rencana Pengujian</span></a></li>
+      <li><a class="nav-item" data-file="panduan/README.md"><span class="nav-item-left"><i class="fa-solid fa-book-bookmark"></i> Panduan: Pusat Panduan</span></a></li>
+      <li><a class="nav-item" data-file="panduan/pengunjung.md"><span class="nav-item-left"><i class="fa-solid fa-user"></i> Panduan: Pengunjung</span></a></li>
+      <li><a class="nav-item" data-file="panduan/tenant.md"><span class="nav-item-left"><i class="fa-solid fa-store"></i> Panduan: Tenant Stand</span></a></li>
+      <li><a class="nav-item" data-file="panduan/admin.md"><span class="nav-item-left"><i class="fa-solid fa-user-shield"></i> Panduan: Administrator</span></a></li>
+      <li><a class="nav-item" data-file="panduan/autentikasi.md"><span class="nav-item-left"><i class="fa-solid fa-key"></i> Panduan: Autentikasi</span></a></li>
+    </ul>
+  </aside>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="docs-main">
+    <header class="docs-topbar">
+      <div class="breadcrumbs">
+        <button class="mobile-menu-toggle" id="sidebar-open-btn"><i class="fa-solid fa-bars"></i></button>
+        <span>Docs</span>
+        <i class="fa-solid fa-chevron-right text-xs"></i>
+        <span class="current" id="crumb-title">00. Overview & Tim</span>
+      </div>
+
+      <div class="topbar-actions">
+        <div class="top-role-tabs">
+          <a href="./pengunjung.html" class="top-role-btn"><i class="fa-solid fa-user text-emerald-400"></i> Pengunjung</a>
+          <a href="./tenant.html" class="top-role-btn"><i class="fa-solid fa-store text-orange-400"></i> Tenant</a>
+          <a href="./admin.html" class="top-role-btn"><i class="fa-solid fa-user-shield text-blue-400"></i> Admin</a>
+        </div>
+
+        <button class="btn-icon" id="theme-toggle-btn" title="Ganti Mode Gelap / Terang">
+          <i class="fa-solid fa-sun text-amber-500"></i>
+        </button>
+        <button class="btn-icon" id="print-btn" title="Cetak / Unduh PDF">
+          <i class="fa-solid fa-print"></i>
+        </button>
+        <a href="../" class="btn-portal" title="Buka Aplikasi Web Nyam Center">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          <span>Buka Web</span>
+        </a>
+      </div>
+    </header>
+
+    <article class="docs-article markdown-body" id="doc-content">
+      <div style="text-align: center; padding: 4rem 0;">
+        <i class="fa-solid fa-circle-notch fa-spin fa-2x text-primary"></i>
+        <p style="margin-top: 1rem;">Memuat dokumentasi...</p>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    // Initialize Mermaid
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'dark',
+      themeVariables: {
+        primaryColor: '#f97316',
+        primaryTextColor: '#ffffff',
+        primaryBorderColor: '#ea580c',
+        lineColor: '#fb923c',
+        secondaryColor: '#1e293b',
+        tertiaryColor: '#0f172a'
+      }
+    });
+
+    // Theme Switcher
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    themeBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('docs_theme', next);
+      themeBtn.innerHTML = next === 'dark' 
+        ? '<i class="fa-solid fa-sun text-amber-500"></i>' 
+        : '<i class="fa-solid fa-moon text-indigo-400"></i>';
+      
+      mermaid.initialize({
+        theme: next === 'dark' ? 'dark' : 'default'
+      });
+      loadDoc(activeDocFile);
+    });
+
+    const savedTheme = localStorage.getItem('docs_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeBtn.innerHTML = savedTheme === 'dark' 
+      ? '<i class="fa-solid fa-sun text-amber-500"></i>' 
+      : '<i class="fa-solid fa-moon text-indigo-400"></i>';
+
+    // Print Handler
+    document.getElementById('print-btn').addEventListener('click', () => window.print());
+
+    // Mobile Sidebar Toggle
+    const sidebar = document.getElementById('docs-sidebar');
+    const openBtn = document.getElementById('sidebar-open-btn');
+    const closeBtn = document.getElementById('sidebar-close-btn');
+
+    if (openBtn) openBtn.addEventListener('click', () => sidebar.classList.add('open'));
+    if (closeBtn) closeBtn.addEventListener('click', () => sidebar.classList.remove('open'));
+
+    // Search Filter
+    const searchInput = document.getElementById('doc-search');
+    searchInput.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase();
+      document.querySelectorAll('.nav-item').forEach(item => {
+        const text = item.innerText.toLowerCase();
+        const parentLi = item.closest('li');
+        if (text.includes(q)) {
+          parentLi.style.display = 'block';
+        } else {
+          parentLi.style.display = 'none';
+        }
+      });
+    });
+
+    // Marked Renderer customization for Mermaid & Code
+    const renderer = new marked.Renderer();
+    const originalCodeRenderer = renderer.code.bind(renderer);
+
+    renderer.code = function({ text, lang }) {
+      if (lang === 'mermaid') {
+        return `<div class="mermaid-container"><pre class="mermaid">${text}</pre></div>`;
+      }
+      return originalCodeRenderer({ text, lang });
+    };
+
+    marked.setOptions({ renderer });
+
+    let activeDocFile = '00-project-overview.md';
+
+    async function loadDoc(fileName) {
+      activeDocFile = fileName;
+      const contentEl = document.getElementById('doc-content');
+      const crumbTitle = document.getElementById('crumb-title');
+
+      // Update Nav Active
+      document.querySelectorAll('.nav-item').forEach(item => {
+        if (item.getAttribute('data-file') === fileName) {
+          item.classList.add('active');
+          crumbTitle.innerText = item.innerText.trim();
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      contentEl.innerHTML = `
+        <div style="text-align: center; padding: 4rem 0;">
+          <i class="fa-solid fa-circle-notch fa-spin fa-2x" style="color: var(--primary);"></i>
+          <p style="margin-top: 1rem; color: var(--text-muted);">Memuat file ${fileName}...</p>
+        </div>
+      `;
+
+      try {
+        const res = await fetch(`./${fileName}`);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const mdText = await res.text();
+        contentEl.innerHTML = marked.parse(mdText);
+
+        // Run Mermaid
+        await mermaid.run({
+          nodes: document.querySelectorAll('.mermaid')
+        });
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        contentEl.innerHTML = `
+          <div style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); border-radius: 12px; padding: 2rem; color: #f87171;">
+            <h3><i class="fa-solid fa-triangle-exclamation"></i> Gagal Memuat Dokumen</h3>
+            <p style="margin-top: 0.5rem; color: var(--text-muted);">Tidak dapat memuat berkas <code>${fileName}</code>. Pastikan web dijalankan melalui web server lokal atau live server.</p>
+            <p style="font-size: 0.85rem; margin-top: 0.5rem; font-family: monospace;">Detail: ${err.message}</p>
+          </div>
+        `;
+      }
+    }
+
+    // Attach Click Handlers to Nav Items
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const file = item.getAttribute('data-file');
+        if (file) {
+          loadDoc(file);
+          if (window.innerWidth <= 900) {
+            sidebar.classList.remove('open');
+          }
+        }
+      });
+    });
+
+    // Initial Load
+    document.addEventListener('DOMContentLoaded', () => {
+      loadDoc('00-project-overview.md');
+    });
+  </script>
+</body>
+</html>

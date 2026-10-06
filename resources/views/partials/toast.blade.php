@@ -1,0 +1,2 @@
+<!-- ================= TOAST CONTAINER ================= -->
+<div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
